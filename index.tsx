@@ -8,9 +8,17 @@ if (!rootElement) {
   throw new Error("Could not find root element to mount to");
 }
 
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+try {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} catch (error) {
+  console.error("React rendering error:", error);
+  rootElement.innerHTML = `<div style="color: white; padding: 20px; text-align: center;">
+    <h1>Error Loading App</h1>
+    <p>Please check the console for more details. Make sure Firebase is configured correctly.</p>
+  </div>`;
+}
