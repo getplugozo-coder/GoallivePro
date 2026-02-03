@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -34,25 +34,22 @@ const App: React.FC = () => {
         <div className="flex flex-col min-h-screen bg-slate-900 text-slate-100">
           <Navbar />
           <main className="flex-grow container mx-auto px-4 py-8">
-            <Routes>
-              {/* User Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/match/:id" element={<MatchDetails />} />
-              
-              {/* Hidden Admin Routes */}
-              <Route path="/admin-goallive-pro/login" element={<AdminLogin />} />
-              <Route 
-                path="/admin-goallive-pro/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              {/* Catch-all */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+            <Suspense fallback={<div className="text-center py-20 text-slate-500">Loading Section...</div>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/match/:id" element={<MatchDetails />} />
+                <Route path="/admin-goallive-pro/login" element={<AdminLogin />} />
+                <Route 
+                  path="/admin-goallive-pro/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
           </main>
           <Footer />
         </div>

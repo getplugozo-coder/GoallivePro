@@ -1,21 +1,28 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+
+// 💡 تنبيه: هذه قيم تجريبية، التطبيق سيعمل بنظام Mock Data حتى تضع قيمك الحقيقية
 const firebaseConfig = {
-  apiKey: "AIzaSyCAy2obWW8Mbcbyn1YPmH1VHVic-I4KIQU",
+  apiKey: "AIzaSy-PLACEHOLDER", 
   authDomain: "goallive-pro.firebaseapp.com",
   projectId: "goallive-pro",
-  storageBucket: "goallive-pro.firebasestorage.app",
-  messagingSenderId: "64719827074",
-  appId: "1:64719827074:web:682fcb42cbd234a3c3449b",
-  measurementId: "G-049HKW4QYF"
+  storageBucket: "goallive-pro.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+let db: any = null;
+let auth: any = null;
+
+try {
+  const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  auth = getAuth(app);
+  console.log("Firebase system ready");
+} catch (error) {
+  console.warn("Firebase configuration is missing or invalid. Operating in Demo Mode.");
+}
+
+export { db, auth };
