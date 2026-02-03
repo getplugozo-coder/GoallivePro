@@ -1,0 +1,5 @@
+{
+  "name": "Goallive Pro",
+  "description": "Professional real-time football streaming platform with a secure, hidden admin dashboard and Firestore-powered live updates.",
+  "requestFramePermissions": []
+}
